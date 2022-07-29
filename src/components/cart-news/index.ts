@@ -1,0 +1,1 @@
+export { CartNews } from './cart-news';
