@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { URL_API, URL_API_HOME, KEY_API } from "lib/constants";
+import { todayDate } from "lib/helps/date";
 import { Response } from "lib/types";
 
 export const newsHomeApi = createApi({
@@ -11,7 +12,7 @@ export const newsHomeApi = createApi({
     }),
     searhNews: builder.query<Response, string>({
       query: (serach) =>
-        `/everything?q=${serach}&from=2022-06-29&sortBy=publishedAt&apiKey=${KEY_API}`,
+        `/everything?q=${serach}&from=${todayDate()}&sortBy=publishedAt&apiKey=${KEY_API}`,
     }),
   }),
 });

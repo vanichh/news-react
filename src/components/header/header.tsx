@@ -1,10 +1,11 @@
 import { FC, useState, ChangeEvent, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { useLazySearhNewsQuery } from "store/api/news";
+import { todayDate } from "lib/helps/date";
 
 export const Header: FC = () => {
   const [value, setValue] = useState<string>("");
-  const [valueTime, setValueTime] = useState("");
+  const [valueDate, setValueDate] = useState(todayDate());
 
   const [fetch, { isLoading, data }] = useLazySearhNewsQuery();
 
@@ -16,7 +17,7 @@ export const Header: FC = () => {
   };
 
   const handlerTime = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setValueTime(target.value);
+    setValueDate(target.value);
   };
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export const Header: FC = () => {
         />
         <input
           className='ml-4 border h-9 rounded-md'
-          value={valueTime}
+          value={valueDate}
           onChange={handlerTime}
           type={"date"}
         />
