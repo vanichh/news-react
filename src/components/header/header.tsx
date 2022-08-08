@@ -2,28 +2,34 @@ import { FC, useState, ChangeEvent, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { useSearhNewsMutation } from "store/api/news";
 import { todayDate } from "lib/helps/date";
+import { INIT_VALUE } from "lib/constants";
 
 type TEvent = ChangeEvent<HTMLInputElement>;
+type IInput = {
+  search: string;
+  time: string;
+};
 
 export const Header: FC = () => {
-  const [value, setValue] = useState<string>("");
-  const [valueDate, setValueDate] = useState(todayDate());
+  const [value, setValue] = useState<IInput>({
+    search: INIT_VALUE,
+    time: todayDate(),
+  });
 
   const [fetch, { isLoading, data }] = useSearhNewsMutation();
 
   const debounced = useDebouncedCallback((value) => fetch(value), 1000);
 
   const hanlerSearch = ({ target }: TEvent) => {
-    setValue(target.value);
+    setValue((prev) => ({ ...prev, search: target.value }));
     debounced(target.value);
   };
 
   const handlerTime = ({ target }: TEvent) => {
-    setValueDate(target.value);
+    setValue((prev) => ({ ...prev, time: target.value }));
   };
 
   useEffect(() => {
-    console.log(data)
     if (!isLoading) {
     }
   }, [data, isLoading]);
@@ -33,14 +39,14 @@ export const Header: FC = () => {
       <h1 className='uppercase text-2xl'>News feed</h1>
       <div className='flex items-center'>
         <input
-          value={value}
+          value={value.search}
           onChange={hanlerSearch}
           className='pl-2 border focus-visible:outline-none h-8 w-96 rounded-md my-4'
           type={"search"}
         />
         <input
           className='ml-4 border h-9 rounded-md'
-          value={valueDate}
+          value={value.time}
           onChange={handlerTime}
           type={"date"}
         />

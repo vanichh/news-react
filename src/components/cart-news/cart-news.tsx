@@ -18,15 +18,15 @@ export const CartNews: FC<ICartNews> = (props) => {
         </Moment>
       </header>
       <figure className='flex h-full flex-col'>
-        <LazyLoadImage className='mx-auto block mb-[20px]' width={500} alt={title} src={urlToImage || noImage}></LazyLoadImage>
+        <LazyLoadImage className='mx-auto block mb-[20px] max-h-full h-full object-scale-down' width={500} alt={title} src={urlToImage || noImage}></LazyLoadImage>
         <figcaption className='mt-auto' dangerouslySetInnerHTML={{ __html: description }}></figcaption>
       </figure>
       <header className='mt-4 text-sm flex w-full'>
         <p className='ml-auto'>
-          <span>author:</span> {author || 'unknown'}
+          <span>автор:</span> {author || 'неизвестно'}
         </p>
         <p className='ml-4'>
-          <span>origin:</span> {source.name || 'unknown'}
+          <span>оригинал:</span> {source.name || 'неизвестно'}
         </p>
       </header>
     </article>

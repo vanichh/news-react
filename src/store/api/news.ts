@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { URL_API, URL_API_HOME, KEY_API } from "lib/constants";
+import { URL_API, KEY_API, INIT_VALUE } from "lib/constants";
 import { todayDate } from "lib/helps/date";
 import { Response } from "lib/types";
 
@@ -8,14 +8,32 @@ export const newsHomeApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: URL_API }),
   endpoints: (builder) => ({
     getNews: builder.query<Response, void>({
-      query: () => `${URL_API_HOME}`,
+      query: () => ({
+        url: `/everything`,
+        params: {
+          q: INIT_VALUE,
+          from: todayDate(),
+          to: todayDate(),
+          sortBy: "popularity",
+          language: "ru",
+          apiKey: KEY_API,
+        },
+      }),
     }),
     searhNews: builder.mutation<Response, string>({
-      query: (serach) =>
-        `/everything?q=${serach}&from=${todayDate()}&sortBy=publishedAt&apiKey=${KEY_API}`,
-      async onQueryStarted(arg, { dispatch, getState, queryFulfilled }) {
+      query: (serach) => ({
+        url: `/everything`,
+        params: {
+          q: serach,
+          from: todayDate(),
+          sortBy: "publishedAt",
+          language: "ru",
+          apiKey: KEY_API,
+        },
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
-        const upd = dispatch(
+        dispatch(
           newsHomeApi.util.updateQueryData("getNews", undefined, (draft) => {
             Object.assign(draft, data);
           })

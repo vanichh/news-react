@@ -6,8 +6,6 @@ import { Loading } from "components/loading";
 export const Home: FC = () => {
   const { isLoading, currentData, } = useGetNewsQuery();
 
-  console.log(currentData);
-
   if (isLoading) {
     return <Loading />;
   }
