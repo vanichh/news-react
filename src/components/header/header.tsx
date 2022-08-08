@@ -1,27 +1,30 @@
 import { FC, useState, ChangeEvent, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { useLazySearhNewsQuery } from "store/api/news";
+import { useSearhNewsMutation } from "store/api/news";
 import { todayDate } from "lib/helps/date";
+
+type TEvent = ChangeEvent<HTMLInputElement>;
 
 export const Header: FC = () => {
   const [value, setValue] = useState<string>("");
   const [valueDate, setValueDate] = useState(todayDate());
 
-  const [fetch, { isLoading, data }] = useLazySearhNewsQuery();
+  const [fetch, { isLoading, data }] = useSearhNewsMutation();
 
   const debounced = useDebouncedCallback((value) => fetch(value), 1000);
 
-  const hanlerSearch = ({ target }: ChangeEvent<HTMLInputElement>) => {
+  const hanlerSearch = ({ target }: TEvent) => {
     setValue(target.value);
     debounced(target.value);
   };
 
-  const handlerTime = ({ target }: ChangeEvent<HTMLInputElement>) => {
+  const handlerTime = ({ target }: TEvent) => {
     setValueDate(target.value);
   };
 
   useEffect(() => {
-    if (isLoading) {
+    console.log(data)
+    if (!isLoading) {
     }
   }, [data, isLoading]);
 

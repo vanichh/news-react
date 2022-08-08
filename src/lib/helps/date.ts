@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export const todayDate = (): string => {
-  return moment().format("yyyy-MM-D");
-}
+  return new Date().toISOString().slice(0, 10);
+};
