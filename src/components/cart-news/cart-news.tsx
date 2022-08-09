@@ -9,26 +9,38 @@ export const CartNews: FC<ICartNews> = (props) => {
 
   return (
     <article className='w-full max-w-[500px] flex flex-col items-center'>
-      <header className='flex flex-col w-full border-b-2 mb-4'>
+      <header className='flex flex-col w-full border-b-2 mb-4 h-full'>
         <a href={url} className='block w-full text-center'>
-          <h3 className='text-xl mb-2 mt-4 font-bold'>{title}</h3>
+          <h3 className='text-xl text-left mb-2 mt-4 font-bold'>{title}</h3>
         </a>
-        <Moment className='ml-auto text-sm text-slate-500' format='MM/DD/YYYY h:mm'>
+        <Moment
+          className='ml-auto mt-auto text-sm text-slate-500'
+          format='MM/DD/YYYY h:mm'
+        >
           {publishedAt}
         </Moment>
       </header>
       <figure className='flex h-full flex-col'>
-        <LazyLoadImage className='mx-auto block mb-[20px] max-h-full h-full object-scale-down' width={500} alt={title} src={urlToImage || noImage}></LazyLoadImage>
-        <figcaption className='mt-auto' dangerouslySetInnerHTML={{ __html: description }}></figcaption>
+        <LazyLoadImage
+          className='mx-auto block mb-[20px] max-h-full object-contain'
+          width={500}
+          height={300}
+          alt={title}
+          src={urlToImage || noImage}
+        ></LazyLoadImage>
+        <figcaption
+          className=''
+          dangerouslySetInnerHTML={{ __html: description }}
+        ></figcaption>
       </figure>
-      <header className='mt-4 text-sm flex w-full'>
+      <footer className='mt-4 text-sm flex w-full'>
         <p className='ml-auto'>
-          <span>автор:</span> {author || 'неизвестно'}
+          <span>автор:</span> {author || "неизвестно"}
         </p>
         <p className='ml-4'>
-          <span>оригинал:</span> {source.name || 'неизвестно'}
+          <span>оригинал:</span> {source.name || "неизвестно"}
         </p>
-      </header>
+      </footer>
     </article>
   );
 };
