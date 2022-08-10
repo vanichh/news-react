@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IInput } from "components/header/header";
+import { TInputsValue } from "lib/types";
 import { URL_API, KEY_API, INIT_VALUE } from "lib/constants";
 import { todayDate } from "lib/helps/date";
 import { Response } from "lib/types";
@@ -21,7 +21,7 @@ export const newsHomeApi = createApi({
         },
       }),
     }),
-    searhNews: builder.mutation<Response, IInput>({
+    searhNews: builder.mutation<Response, TInputsValue>({
       query: ({ search, time, sort }) => ({
         url: `/everything`,
         params: {
