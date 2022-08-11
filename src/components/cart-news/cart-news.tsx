@@ -2,11 +2,14 @@ import { FC } from "react";
 import { ICartNews } from "lib/types";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Moment from "react-moment";
+import { UseLoadImg } from "lib/hooks/load-img";
 import noImage from "images/no-image.png";
 
 export const CartNews: FC<ICartNews> = (props) => {
   const { author, title, description, url, urlToImage, publishedAt, source } =
     props;
+
+  const { image } = UseLoadImg(urlToImage || "", noImage);
 
   return (
     <article className='w-full max-w-[500px] flex flex-col items-center'>
@@ -27,7 +30,7 @@ export const CartNews: FC<ICartNews> = (props) => {
           width={500}
           height={300}
           alt={title}
-          src={urlToImage || noImage}
+          src={image}
         ></LazyLoadImage>
         <figcaption
           className=''
