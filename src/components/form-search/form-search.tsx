@@ -16,7 +16,7 @@ export const FormSearch = () => {
   const [valueInput, setValueInput] = useState(initValueInput);
 
   const [fetch, { isLoading, data }] = useSearhNewsMutation();
-
+  console.log("data", data?.totalResults);
   const navigate = useNavigate();
 
   if (data?.status === "error") {
@@ -51,9 +51,12 @@ export const FormSearch = () => {
         <input
           value={valueInput.search}
           onChange={hanlerSearch}
-          className='pl-2 px-2 border focus-visible:outline-none h-8 w-96 rounded-md'
+          className='pl-2 px-2 border focus-visible:outline-none h-8 w-[500px] rounded-md'
           type={"search"}
         />
+        <span className='absolute top-1 right-12 opacity-40 text-sm'>
+          Найдено: {data?.totalResults}
+        </span>
         {isLoading && <Spiner className='absolute right-0' />}
       </label>
       <input
