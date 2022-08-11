@@ -12,8 +12,7 @@ export const UseLoadImg = (url: string, imgError: string) => {
     setImage(url);
   };
 
-  const handlerError = (e: Event) => {
-    console.dir(e);
+  const handlerError = () => {
     setLoading(false);
     setError(true);
   };
