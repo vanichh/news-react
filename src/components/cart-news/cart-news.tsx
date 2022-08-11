@@ -13,7 +13,7 @@ export const CartNews: FC<ICartNews> = (props) => {
 
   return (
     <article className='w-full max-w-[500px] flex flex-col items-center'>
-      <header className='flex flex-col w-full border-b-2 mb-4 h-full'>
+      <header className='flex flex-col w-full border-b-2 mb-4'>
         <a href={url} className='block w-full text-center'>
           <h3 className='text-xl text-left mb-2 mt-4 font-bold'>{title}</h3>
         </a>
@@ -39,10 +39,10 @@ export const CartNews: FC<ICartNews> = (props) => {
       </figure>
       <footer className='mt-4 text-sm flex w-full'>
         <p className='ml-auto'>
-          <span>автор:</span> {author || "неизвестно"}
+          <span>автор:</span> {author || "Неизвестно"}
         </p>
         <p className='ml-4'>
-          <span>оригинал:</span> {source.name || "неизвестно"}
+          <span>©</span> {source.name || "Неизвестно"}
         </p>
       </footer>
     </article>
