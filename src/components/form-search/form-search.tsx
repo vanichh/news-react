@@ -5,6 +5,7 @@ import { useSearhNewsMutation } from "store/api/news";
 import { useDebouncedCallback } from "use-debounce";
 import { TInputsValue, TEvent } from "lib/types";
 import { Spiner } from "ui/spiner";
+import { useNavigate } from "react-router-dom";
 
 const initValueInput: TInputsValue = {
   search: INIT_VALUE,
@@ -14,12 +15,19 @@ const initValueInput: TInputsValue = {
 export const FormSearch = () => {
   const [valueInput, setValueInput] = useState(initValueInput);
 
-  const [fetch, { isLoading }] = useSearhNewsMutation();
+  const [fetch, { isLoading, data }] = useSearhNewsMutation();
+
+  const navigate = useNavigate();
+
+  if (data?.status === "error") {
+    navigate("/");
+  }
 
   const debounced = useDebouncedCallback((value) => fetch(value), 1000);
 
   const hanlerSearch = ({ target }: TEvent) => {
     setValueInput((prev) => ({ ...prev, search: target.value }));
+    if (target.value === "") return;
     debounced(valueInput);
   };
 

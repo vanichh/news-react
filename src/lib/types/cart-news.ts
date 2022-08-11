@@ -15,4 +15,5 @@ export interface Response {
   articles: ICartNews[];
   status: string;
   totalResults: number;
+  message?: string;
 }

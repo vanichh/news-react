@@ -1,11 +1,12 @@
-import { FC } from 'react';
-import { ICartNews } from 'lib/types';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import Moment from 'react-moment';
-import noImage from 'images/no-image.png';
+import { FC } from "react";
+import { ICartNews } from "lib/types";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import Moment from "react-moment";
+import noImage from "images/no-image.png";
 
 export const CartNews: FC<ICartNews> = (props) => {
-  const { author, title, description, url, urlToImage, publishedAt, source } = props;
+  const { author, title, description, url, urlToImage, publishedAt, source } =
+    props;
 
   return (
     <article className='w-full max-w-[500px] flex flex-col items-center'>
@@ -22,7 +23,7 @@ export const CartNews: FC<ICartNews> = (props) => {
       </header>
       <figure className='flex h-full flex-col'>
         <LazyLoadImage
-          className='mx-auto block mb-[20px] max-h-full object-contain'
+          className='mx-auto block h-[300px] mb-[20px] max-h-full object-cover'
           width={500}
           height={300}
           alt={title}
