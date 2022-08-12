@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "store/store";
-import { App } from "App";
+import { App } from "./app";
 
 const rootHTML = document.getElementById("root") as HTMLElement;
 

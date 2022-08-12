@@ -1,19 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
-export const UseLoadImg = (url: string, imgError: string) => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [image, setImage] = useState<string>(imgError);
+export const UseLoadImg = (url: string, imgDefaut: string) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [image, setImage] = useState<string>(imgDefaut);
   const [error, setError] = useState<boolean>(false);
 
   const img = new Image();
 
   const handlerLoad = () => {
-    setLoading(false);
+    setIsLoading(false);
     setImage(url);
   };
 
   const handlerError = () => {
-    setLoading(false);
+    setIsLoading(false);
     setError(true);
   };
   useEffect(() => {
@@ -26,5 +27,5 @@ export const UseLoadImg = (url: string, imgError: string) => {
     };
   }, []);
 
-  return { loading, image, error };
+  return { isLoading, image, error };
 };

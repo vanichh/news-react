@@ -14,8 +14,7 @@ export const newsHomeApi = createApi({
         params: {
           q: INIT_VALUE,
           from: todayDate(),
-          to: todayDate(),
-          sortBy: "popularity",
+          sortBy: "publishedAt",
           language: "ru",
           apiKey: KEY_API,
         },

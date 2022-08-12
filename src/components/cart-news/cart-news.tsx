@@ -14,7 +14,12 @@ export const CartNews: FC<ICartNews> = (props) => {
   return (
     <article className='w-full max-w-[500px] flex flex-col items-center'>
       <header className='flex flex-col w-full border-b-2 mb-4'>
-        <a href={url} className='block w-full text-center'>
+        <a
+          href={url}
+          target='_blank'
+          rel='noreferrer'
+          className='block w-full text-center'
+        >
           <h3 className='text-xl text-left mb-2 mt-4 font-bold'>{title}</h3>
         </a>
         <Moment
