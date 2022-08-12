@@ -3,6 +3,7 @@ import { TInputsValue } from "lib/types";
 import { URL_API, KEY_API, INIT_VALUE } from "lib/constants";
 import { todayDate } from "lib/helps/date";
 import { Response } from "lib/types";
+import { setCount } from "store/slices/pagination";
 
 export const newsHomeApi = createApi({
   reducerPath: "newsHomeApi",
@@ -19,20 +20,28 @@ export const newsHomeApi = createApi({
           apiKey: KEY_API,
         },
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+
+        dispatch(setCount(data.totalResults));
+      },
     }),
     searhNews: builder.mutation<Response, TInputsValue>({
-      query: ({ search, time, sort }) => ({
+      query: ({ search, time, sort, page }) => ({
         url: `/everything`,
         params: {
           q: search,
           from: time,
           sortBy: sort,
           language: "ru",
+          pageSize: 10,
+          page,
           apiKey: KEY_API,
         },
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
+        dispatch(setCount(data.totalResults));
         dispatch(
           newsHomeApi.util.updateQueryData("getNews", undefined, (draft) => {
             Object.assign(draft, data);

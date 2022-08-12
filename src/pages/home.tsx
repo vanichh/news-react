@@ -6,6 +6,8 @@ import { NoResult } from "components/no-result";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "lib/hooks";
 import { setError } from "store/slices/error";
+import { Pagination } from "components/pagination";
+import { Header } from "components/header";
 
 export const Home: FC = () => {
   const { isLoading, currentData } = useGetNewsQuery();
@@ -24,11 +26,15 @@ export const Home: FC = () => {
   }
 
   return (
-    <section className='grid items-stretch gap-y-[30px] grid-cols-2 justify-items-center'>
-      {currentData?.articles.map((item) => (
-        <CartNews key={item.url} {...item} />
-      ))}
-    </section>
+    <>
+      <Header />
+      <Pagination />
+      <section className='grid items-stretch gap-y-[30px] grid-cols-2 justify-items-center'>
+        {currentData?.articles.map((item) => (
+          <CartNews key={item.url} {...item} />
+        ))}
+      </section>
+    </>
   );
 };
 
