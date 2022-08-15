@@ -2,15 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface PaginationState {
-  count: number;
-  page: number;
-  size: number;
+  countNews: number;
+  numberPage: number;
+  showNews: number;
 }
 
 const initialState: PaginationState = {
-  page: 1,
-  size: 10,
-  count: 0,
+  numberPage: 1,
+  showNews: 10,
+  countNews: 0,
 };
 
 export const paginationSlice = createSlice({
@@ -18,17 +18,21 @@ export const paginationSlice = createSlice({
   initialState,
   reducers: {
     setPage: (state, { payload }: PayloadAction<number>) => {
-      state.page = payload;
+      state.numberPage = payload;
     },
-    setSize: (state, { payload }: PayloadAction<number>) => {
-      state.size = payload;
+    setShowNews: (state, { payload }: PayloadAction<number>) => {
+      state.showNews = payload;
     },
-    setCount: (state, { payload }: PayloadAction<number>) => {
-      state.count = payload;
+    setCountNews: (state, { payload }: PayloadAction<number>) => {
+      state.countNews = payload;
     },
   },
 });
 
-export const { setPage, setSize, setCount } = paginationSlice.actions;
+export const {
+  setPage,
+  setShowNews,
+  setCountNews,
+} = paginationSlice.actions;
 
 export default paginationSlice.reducer;

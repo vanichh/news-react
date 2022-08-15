@@ -1,27 +1,34 @@
 import { FC } from "react";
-import { CartNews } from "components/cart-news";
 import { useGetNewsQuery } from "store/api/news";
 import { Loading } from "components/loading";
 import { NoResult } from "components/no-result";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "lib/hooks";
+import { useDispatch, useSelector } from "lib/hooks";
 import { setError } from "store/slices/error";
 import { Pagination } from "components/pagination";
 import { Header } from "components/header";
+import { ListNews } from "components/list-news";
 
 export const Home: FC = () => {
-  const { isLoading, currentData } = useGetNewsQuery();
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
+  const { numberPage, showNews } = useSelector((store) => store.pagination);
+  const { search, sort, time } = useSelector((store) => store.search);
+  const { isLoading, data, error, isError } = useGetNewsQuery({
+    numberPage,
+    search,
+    sort,
+    time,
+    showNews,
+  });
   if (isLoading) {
     return <Loading />;
   }
-  if (currentData?.totalResults === 0) {
-    return <NoResult />;
-  }
-  if (currentData?.status === "error") {
-    dispatch(setError(currentData.message as string));
+  if (isError) {
+    if ("error" in error) {
+      dispatch(setError(error.error));
+    }
     navigation("/error");
   }
 
@@ -29,11 +36,11 @@ export const Home: FC = () => {
     <>
       <Header />
       <Pagination />
-      <section className='grid items-stretch gap-y-[30px] grid-cols-2 justify-items-center'>
-        {currentData?.articles.map((item) => (
-          <CartNews key={item.url} {...item} />
-        ))}
-      </section>
+      {!data?.totalResults ? (
+        <NoResult />
+      ) : (
+        <ListNews listNews={data.articles} />
+      )}
     </>
   );
 };

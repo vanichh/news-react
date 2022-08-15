@@ -13,9 +13,11 @@ export const Error: FC<IProps> = () => {
   const handlerGoHome = () => navigate("/", { replace: true });
 
   return (
-    <main>
-      <p>{text || "Произошла ошибка"}</p>
-      <button onClick={handlerGoHome}>Вернуться на главную</button>
+    <main className='flex flex-col h-full w-full justify-center items-center'>
+      <p className='text-lg mb-6'>{text || "Произошла ошибка"}</p>
+      <button className='border py-1 px-2 rounded-md' onClick={handlerGoHome}>
+        Вернуться на главную
+      </button>
     </main>
   );
 };

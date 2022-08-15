@@ -4,6 +4,7 @@ export type TInputsValue = {
   search: string;
   time: string;
   sort: "publishedAt" | "popularity";
-  page: number;
+  numberPage: number;
+  showNews: number;
 };
 export type TEvent<T = HTMLInputElement> = ChangeEvent<T>;

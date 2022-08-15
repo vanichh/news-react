@@ -5,7 +5,11 @@ import cn from "classnames";
 
 export const Pagination: FC = () => {
   const dispatch = useDispatch();
-  const { page, size, count } = useSelector((store) => store.pagination);
+  const {
+    numberPage: page,
+    showNews: size,
+    countNews: count,
+  } = useSelector((store) => store.pagination);
 
   const countPage = Math.ceil(count / size);
 

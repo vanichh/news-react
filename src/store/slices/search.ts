@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { todayDate } from "lib/helps/date";
+import { INIT_VALUE } from "lib/constants";
 
 export interface SearchState {
   search: string;
@@ -8,7 +9,7 @@ export interface SearchState {
   sort: "publishedAt" | "popularity";
 }
 const initialState: SearchState = {
-  search: "",
+  search: INIT_VALUE,
   time: todayDate(),
   sort: "publishedAt",
 };
