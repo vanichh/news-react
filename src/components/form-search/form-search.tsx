@@ -31,11 +31,7 @@ export const FormSearch = () => {
         <SelectSort />
       </div>
       <div className='w-full shrink-0 flex flex-col items-start'>
-        <button
-          type='button'
-          onSubmit={(e) => e.preventDefault()}
-          onClick={handlerShow}
-        >
+        <button type='button' onClick={handlerShow}>
           Доп параметры
         </button>
         {isOpen && <SelectCountNews />}
