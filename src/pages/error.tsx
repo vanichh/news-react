@@ -14,7 +14,8 @@ export const Error: FC<IProps> = () => {
 
   return (
     <main className='flex flex-col h-full w-full justify-center items-center'>
-      <p className='text-lg mb-6'>{text || "Произошла ошибка"}</p>
+      <h1 className='text-2xl mb-4'>Произошла ошибка</h1>
+      {text ? <p className='text-base mb-6'>{text}</p> : null}
       <button className='border py-1 px-2 rounded-md' onClick={handlerGoHome}>
         Вернуться на главную
       </button>
