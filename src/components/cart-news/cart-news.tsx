@@ -15,9 +15,10 @@ export const CartNews: FC<ICartNews> = (props) => {
 
   return (
     <article
+      onMouseEnter={() => setIsShowBtn(true)}
+      onMouseLeave={() => setIsShowBtn(false)}
       className={cn(
-        "w-full max-w-[500px] flex flex-col items-center transition-[filter]",
-        { "blur-sm": isShowBtn }
+        "w-full max-w-[500px] flex hover:cursor-pointer flex-col items-center"
       )}
     >
       <header className='flex flex-col w-full border-b-2 mb-4'>
@@ -35,17 +36,36 @@ export const CartNews: FC<ICartNews> = (props) => {
           children={publishedAt}
         />
       </header>
-      <figure
-        className='flex h-full flex-col'
-        onMouseEnter={() => setIsShowBtn(true)}
-      >
-        <LazyLoadImage
-          className='mx-auto block h-[300px] mb-[20px] max-h-full object-cover'
-          width={500}
-          height={300}
-          alt={title}
-          src={image}
-        />
+      <figure className={cn("flex h-full flex-col")}>
+        <div className='relative'>
+          <LazyLoadImage
+            className={cn(
+              "mx-auto block transition-[filter] h-[300px] mb-[20px] max-h-full object-cover",
+              {
+                "blur-sm": isShowBtn,
+              }
+            )}
+            width={500}
+            height={300}
+            alt={title}
+            src={image}
+          />
+          <a
+            href={url}
+            rel='noreferrer'
+            target='_blank'
+            className={cn(
+              `opacity-0 transition-[opacity] absolute top-2/4 left-2/4 
+              right-0 bottom-0 translate-x-[-50%] translate-y-[-50%] blur-none
+               bg-slate-600 text-white w-fit px-4 h-fit rounded py-2`,
+              {
+                "!opacity-100": isShowBtn,
+              }
+            )}
+          >
+            Читать в источнике
+          </a>
+        </div>
         <figcaption
           className=''
           dangerouslySetInnerHTML={{ __html: description }}
