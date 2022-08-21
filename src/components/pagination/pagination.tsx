@@ -5,13 +5,11 @@ import cn from "classnames";
 
 export const Pagination: FC = () => {
   const dispatch = useDispatch();
-  const {
-    numberPage: page,
-    showNews: size,
-    countNews: count,
-  } = useSelector((store) => store.pagination);
+  const { numberPage, showNews, countNews } = useSelector(
+    (store) => store.pagination
+  );
 
-  const countPage = Math.ceil(count / size);
+  const countPage = Math.ceil(countNews / showNews);
 
   if (countPage === 1) {
     return null;
@@ -19,7 +17,7 @@ export const Pagination: FC = () => {
 
   const arrButton: number[] = Array(countPage)
     .fill(1)
-    .map((v, i) => i + 1);
+    .map((v, i) => ++i);
 
   const handlerNumPage = (number: number) => {
     dispatch(setPage(number));
@@ -32,7 +30,7 @@ export const Pagination: FC = () => {
           onClick={() => handlerNumPage(item)}
           className={cn(
             "h-7 w-7 rounded-sm border flex items-center justify-center",
-            { "border-amber-700": item === page }
+            { "border-amber-700": item === numberPage }
           )}
           key={item}
         >

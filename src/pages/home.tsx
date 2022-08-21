@@ -1,5 +1,6 @@
-import { FC } from "react";
-import { useGetNewsQuery } from "store/api/news";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FC, useEffect } from "react";
+import { useSearhNewsMutation } from "store/api/news";
 import { Loading } from "components/loading";
 import { NoResult } from "components/no-result";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import { setError } from "store/slices/error";
 import { Pagination } from "components/pagination";
 import { Header } from "components/header";
 import { ListNews } from "components/list-news";
+import { ErrorRespone } from "lib/types/error-api";
 
 export const Home: FC = () => {
   const navigation = useNavigate();
@@ -15,21 +17,26 @@ export const Home: FC = () => {
 
   const { numberPage, showNews } = useSelector((store) => store.pagination);
   const { search, sort, time } = useSelector((store) => store.search);
-  const { isLoading, data, error, isError } = useGetNewsQuery({
-    numberPage,
-    search,
-    sort,
-    time,
-    showNews,
-  });
+  const [fetch, { isLoading, data, error, isError }] = useSearhNewsMutation();
+  useEffect(() => {
+    fetch({ numberPage, search, sort, time, showNews });
+  }, [numberPage, search, showNews, sort, time]);
+
+  useEffect(() => {
+    if (isError) {
+      if ("error" in error!) {
+        dispatch(setError(error.error));
+      }
+      if ("data" in error!) {
+        const { data } = error as ErrorRespone;
+        dispatch(setError(data.message));
+      }
+      navigation("/error");
+    }
+  }, [isError, error]);
+
   if (isLoading) {
     return <Loading />;
-  }
-  if (isError) {
-    if ("error" in error) {
-      dispatch(setError(error.error));
-    }
-    navigation("/error");
   }
 
   return (

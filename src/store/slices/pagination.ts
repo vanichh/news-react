@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { setError } from "./error";
 
 export interface PaginationState {
   countNews: number;
@@ -27,12 +28,13 @@ export const paginationSlice = createSlice({
       state.countNews = payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(setError, () => {
+      return initialState;
+    });
+  },
 });
 
-export const {
-  setPage,
-  setShowNews,
-  setCountNews,
-} = paginationSlice.actions;
+export const { setPage, setShowNews, setCountNews } = paginationSlice.actions;
 
 export default paginationSlice.reducer;

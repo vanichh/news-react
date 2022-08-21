@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { todayDate } from "lib/helps/date";
 import { INIT_VALUE } from "lib/constants";
+import { setError } from "./error";
 
 export interface SearchState {
   search: string;
@@ -27,6 +28,11 @@ export const searchSlice = createSlice({
     setSort: (state, { payload }: PayloadAction<SearchState["sort"]>) => {
       state.sort = payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setError, () => {
+      return initialState;
+    });
   },
 });
 

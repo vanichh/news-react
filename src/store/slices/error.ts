@@ -10,7 +10,6 @@ const initialState: ErrorState = {
   isError: false,
   text: "",
 };
-
 export const errorSlice = createSlice({
   name: "error",
   initialState,

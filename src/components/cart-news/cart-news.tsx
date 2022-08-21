@@ -7,10 +7,10 @@ import noImage from "images/no-image.png";
 import cn from "classnames";
 
 export const CartNews: FC<ICartNews> = (props) => {
-  const [isShowBtn, setIsShowBtn] = useState(false);
   const { author, title, description, url, urlToImage, publishedAt, source } =
     props;
 
+  const [isShowBtn, setIsShowBtn] = useState(false);
   const { image } = UseLoadImg(urlToImage || "", noImage);
 
   return (
