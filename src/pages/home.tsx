@@ -6,10 +6,9 @@ import { NoResult } from "components/no-result";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "lib/hooks";
 import { setError } from "store/slices/error";
-import { Pagination } from "components/pagination";
-import { Header } from "components/header";
 import { ListNews } from "components/list-news";
 import { ErrorRespone } from "lib/types/error-api";
+import { LayoutsSearch } from "components/layouts";
 
 export const Home: FC = () => {
   const navigation = useNavigate();
@@ -40,15 +39,13 @@ export const Home: FC = () => {
   }
 
   return (
-    <>
-      <Header />
-      <Pagination />
+    <LayoutsSearch>
       {!data?.totalResults ? (
         <NoResult />
       ) : (
         <ListNews listNews={data.articles} />
       )}
-    </>
+    </LayoutsSearch>
   );
 };
 
