@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState, } from "react";
 import { TEvent } from "lib/types";
 import { useDispatch, useSelector } from "lib/hooks";
 import { setSearch } from "store/slices/search";
@@ -9,7 +9,8 @@ import { INIT_VALUE } from "lib/constants";
 
 export const InputSeatch: FC = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState(INIT_VALUE);
+  const [value, setValue] = useState<string>(INIT_VALUE);
+  console.log(value);
   const [, { isLoading }] = useSearhNewsMutation();
   const { countNews } = useSelector((store) => store.pagination);
 

@@ -23,8 +23,25 @@ export const Pagination: FC = () => {
     dispatch(setPage(number));
   };
 
+  const handlerNextPage = () => {
+    dispatch(setPage(numberPage + 1));
+  };
+
+  const handlerPrevPage = () => {
+    dispatch(setPage(numberPage - 1));
+  };
+
   return (
     <section className=' w-full flex items-center justify-center'>
+      <button
+        disabled={numberPage === 1}
+        onClick={handlerPrevPage}
+        className={`
+          h-7 w-7 rounded-sm border flex
+          items-center justify-center disabled:text-neutral-400`}
+      >
+        {"<"}
+      </button>
       {arrButton.map((item) => (
         <button
           onClick={() => handlerNumPage(item)}
@@ -37,6 +54,15 @@ export const Pagination: FC = () => {
           {item}
         </button>
       ))}
+      <button
+        onClick={handlerNextPage}
+        disabled={numberPage === countPage}
+        className={`
+          h-7 w-7 rounded-sm border flex items-center
+          justify-center disabled:text-neutral-400`}
+      >
+        {">"}
+      </button>
     </section>
   );
 };

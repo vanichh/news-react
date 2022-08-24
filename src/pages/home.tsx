@@ -34,19 +34,12 @@ export const Home: FC = () => {
     }
   }, [isError, error]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  return (
-    <LayoutsSearch>
-      {!data?.totalResults ? (
-        <NoResult />
-      ) : (
-        <ListNews listNews={data.articles} />
-      )}
-    </LayoutsSearch>
+  const Result = data?.totalResults ? (
+    <ListNews listNews={data.articles} />
+  ) : (
+    <NoResult />
   );
+  return <LayoutsSearch>{isLoading ? <Loading /> : Result}</LayoutsSearch>;
 };
 
 export default Home;

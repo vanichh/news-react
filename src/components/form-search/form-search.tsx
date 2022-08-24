@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useMemo } from "react";
 import { useSearhNewsMutation } from "store/api/news";
 import { useSelector } from "lib/hooks";
 import { InputSeatch } from "components/input-search";
