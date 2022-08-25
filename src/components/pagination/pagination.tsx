@@ -8,6 +8,8 @@ const initState = {
   end: 10,
 };
 
+const CLASS_NAME_BTN = `h-7 w-7 rounded-sm border flex items-center justify-center disabled:text-neutral-400`;
+
 export const Pagination: FC = () => {
   const dispatch = useDispatch();
   const { numberPage, showNews, countNews } = useSelector(
@@ -41,28 +43,23 @@ export const Pagination: FC = () => {
       <button
         disabled={numberPage === 1}
         onClick={() => handlerTogglePage(1)}
-        className={`
-          h-7 w-7 rounded-sm border flex
-          items-center justify-center disabled:text-neutral-400`}
+        className={CLASS_NAME_BTN}
       >
         {"<<"}
       </button>
       <button
         disabled={numberPage === 1}
         onClick={() => handlerTogglePage(numberPage - 1)}
-        className={`
-          h-7 w-7 rounded-sm border flex
-          items-center justify-center disabled:text-neutral-400`}
+        className={CLASS_NAME_BTN}
       >
         {"<"}
       </button>
       {arrButton.slice(viewPage.start, viewPage.end).map((item) => (
         <button
           onClick={() => handlerTogglePage(item)}
-          className={cn(
-            "h-7 w-7 rounded-sm border flex items-center justify-center",
-            { "border-amber-700": item === numberPage }
-          )}
+          className={cn(CLASS_NAME_BTN, {
+            "border-amber-700": item === numberPage,
+          })}
           key={item}
         >
           {item}
@@ -71,18 +68,14 @@ export const Pagination: FC = () => {
       <button
         onClick={() => handlerTogglePage(numberPage + 1)}
         disabled={numberPage === countPage}
-        className={`
-          h-7 w-7 rounded-sm border flex items-center
-          justify-center disabled:text-neutral-400`}
+        className={CLASS_NAME_BTN}
       >
         {">"}
       </button>
       <button
         onClick={() => handlerTogglePage(countPage)}
         disabled={numberPage === countPage}
-        className={`
-          h-7 w-7 rounded-sm border flex items-center
-          justify-center disabled:text-neutral-400`}
+        className={CLASS_NAME_BTN}
       >
         {">>"}
       </button>
