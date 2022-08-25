@@ -10,7 +10,6 @@ import { INIT_VALUE } from "lib/constants";
 export const InputSeatch: FC = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState<string>(INIT_VALUE);
-  console.log(value);
   const [, { isLoading }] = useSearhNewsMutation();
   const { countNews } = useSelector((store) => store.pagination);
 
