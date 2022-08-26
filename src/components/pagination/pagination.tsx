@@ -26,13 +26,13 @@ export const Pagination: FC = () => {
 
   const arrButton: number[] = Array(countPage)
     .fill(1)
-    .map((v, i) => ++i);
+    .map((v, i) => v + i);
 
   const handlerTogglePage = (num: number) => {
     if (num % 10 === 0) {
-      setViewPage({ start: viewPage.start + 10, end: viewPage.end + 10 });
+      setViewPage((prev) => ({ start: prev.start + 10, end: prev.end + 10 }));
     } else if (num % 10 === 1 && num !== 1) {
-      setViewPage({ start: viewPage.start - 10, end: viewPage.end - 10 });
+      setViewPage((prev) => ({ start: prev.start - 10, end: prev.end - 10 }));
     }
 
     dispatch(setPage(num));
