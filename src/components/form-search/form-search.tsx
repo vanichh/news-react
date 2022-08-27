@@ -1,4 +1,4 @@
-import { FormEvent, useState, useMemo } from "react";
+import { FormEvent, useState } from "react";
 import { useSearhNewsMutation } from "store/api/news";
 import { useSelector } from "lib/hooks";
 import { InputSeatch } from "components/input-search";
@@ -9,13 +9,14 @@ import { SelectCountNews } from "components/select-count-news";
 export const FormSearch = () => {
   const { numberPage, showNews } = useSelector((store) => store.pagination);
   const { search, sort, time } = useSelector((store) => store.search);
+  const { keyApi } = useSelector((store) => store.keyApi);
   const [fetch] = useSearhNewsMutation();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handlerSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch({ search, numberPage, time, sort, showNews });
+    fetch({ search, numberPage, time, sort, showNews, keyApi });
   };
 
   const handlerShow = (e: any) => {

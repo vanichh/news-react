@@ -6,11 +6,11 @@ import { setCountNews } from "store/slices/pagination";
 
 export const newsHomeApi = createApi({
   reducerPath: "newsHomeApi",
-  baseQuery: fetchBaseQuery({ baseUrl: URL_API }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${URL_API}/everything` }),
   endpoints: (builder) => ({
     getNews: builder.query<Response, TInputsValue>({
-      query: ({ search, time, sort, numberPage, showNews }) => ({
-        url: `/everything`,
+      query: ({ search, time, sort, numberPage, showNews, keyApi }) => ({
+        url: ``,
         params: {
           q: search,
           from: time,
@@ -18,7 +18,7 @@ export const newsHomeApi = createApi({
           language: "ru",
           pageSize: showNews,
           page: numberPage,
-          apiKey: KEY_API,
+          apiKey: keyApi,
         },
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -28,8 +28,8 @@ export const newsHomeApi = createApi({
       },
     }),
     searhNews: builder.mutation<Response, TInputsValue>({
-      query: ({ search, time, sort, numberPage, showNews }) => ({
-        url: `/everything`,
+      query: ({ search, time, sort, numberPage, showNews, keyApi }) => ({
+        url: ``,
         params: {
           q: search,
           from: time,
@@ -37,7 +37,7 @@ export const newsHomeApi = createApi({
           language: "ru",
           pageSize: showNews,
           page: numberPage,
-          apiKey: KEY_API,
+          apiKey: keyApi,
         },
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {

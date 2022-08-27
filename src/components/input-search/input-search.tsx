@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, } from "react";
+import { FC, useState, } from "react";
 import { TEvent } from "lib/types";
 import { useDispatch, useSelector } from "lib/hooks";
 import { setSearch } from "store/slices/search";

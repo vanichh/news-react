@@ -6,5 +6,6 @@ export type TInputsValue = {
   sort: "publishedAt" | "popularity";
   numberPage: number;
   showNews: number;
+  keyApi: string;
 };
 export type TEvent<T = HTMLInputElement> = ChangeEvent<T>;

@@ -9,6 +9,7 @@ import { setError } from "store/slices/error";
 import { ListNews } from "components/list-news";
 import { ErrorRespone } from "lib/types/error-api";
 import { LayoutsSearch } from "components/layouts";
+import { ModalKeyApi } from "components/modal-key-api";
 
 export const Home: FC = () => {
   const navigation = useNavigate();
@@ -16,23 +17,34 @@ export const Home: FC = () => {
 
   const { numberPage, showNews } = useSelector((store) => store.pagination);
   const { search, sort, time } = useSelector((store) => store.search);
+  const { keyApi } = useSelector((store) => store.keyApi);
   const [fetch, { isLoading, data, error, isError }] = useSearhNewsMutation();
   useEffect(() => {
-    fetch({ numberPage, search, sort, time, showNews });
-  }, [numberPage, search, showNews, sort, time]);
+    fetch({ numberPage, search, sort, time, showNews, keyApi });
+  }, [numberPage, search, showNews, sort, time, keyApi]);
 
   useEffect(() => {
     if (isError) {
       if ("error" in error!) {
         dispatch(setError(error.error));
+        navigation("/error");
       }
       if ("data" in error!) {
         const { data } = error as ErrorRespone;
         dispatch(setError(data.message));
+        if (data.code !== "apiKeyInvalid") {
+          navigation("/error");
+        }
       }
-      navigation("/error");
     }
   }, [isError, error]);
+
+  if (error) {
+    const { data } = error as ErrorRespone;
+    if (data.code === "apiKeyInvalid") {
+      return <ModalKeyApi />;
+    }
+  }
 
   const Result = data?.totalResults ? (
     <ListNews listNews={data.articles} />
