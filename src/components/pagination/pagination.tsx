@@ -29,10 +29,12 @@ export const Pagination: FC = () => {
     .map((v, i) => v + i);
 
   const handlerTogglePage = (num: number) => {
-    if (num % 10 === 0) {
-      setViewPage((prev) => ({ start: prev.start + 10, end: prev.end + 10 }));
-    } else if (num % 10 === 1 && num !== 1) {
-      setViewPage((prev) => ({ start: prev.start - 10, end: prev.end - 10 }));
+    if (num === 1) {
+      setViewPage(initState);
+    } else if (num === viewPage.end) {
+      setViewPage((prev) => ({ start: prev.start + 9, end: prev.end + 9 }));
+    } else if (viewPage.start - num === 0) {
+      setViewPage((prev) => ({ start: prev.start - 9, end: prev.end - 9 }));
     }
 
     dispatch(setPage(num));

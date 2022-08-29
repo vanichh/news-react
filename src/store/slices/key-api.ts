@@ -7,7 +7,7 @@ interface KeyApiState {
 }
 
 const initialState: KeyApiState = {
-  keyApi: KEY_API + 'we' || localStorage.get("KEY_API") || "",
+  keyApi: KEY_API  || localStorage.get("KEY_API") || "",
   wordKey: false,
 };
 
